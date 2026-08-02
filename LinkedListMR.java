@@ -34,9 +34,12 @@ public class LinkedListMR<T>{
    
    //add node in between
    public void addBetween(int index, T element){
-      LLNode<T> newNode = new LLNode<T>(element);
-      currNode = head;
+      if(head == null){
+         System.out.println("Linked List is empty!");
+         return;
+      }
       
+      currNode = head;
       //get to index
       for(int i = 0; i < index; i++){
          currNode = currNode.getLink();
@@ -45,9 +48,10 @@ public class LinkedListMR<T>{
             return;
          }
       }
-      
-      currNode.setLink(newNode);
-      newNode.setLink(null);
+
+      LLNode<T> newNode = new LLNode<T>(element);
+      newNode.setLink(currNode.getLink());
+      newNode.setLink(newNode);
    }
    
    //general add to the end of the list 
@@ -92,6 +96,10 @@ public class LinkedListMR<T>{
    
    //finding the middle of a Linked List
    public T findMiddle(){
+      if(head == null){
+         return null;
+      }
+      
       LLNode<T> slowPointNode = head;
       LLNode<T> fastPointNode = head;
       
@@ -100,8 +108,7 @@ public class LinkedListMR<T>{
          slowPointNode = slowPointNode.getLink();
          
          //move fast pointer
-         fastPointNode = fastPointNode.getLink();
-         fastPointNode = fastPointNode.getLink();
+         fastPointNode = fastPointNode.getLink().getLink();
       }
       
       return slowPointNode.getInfo();
@@ -110,15 +117,15 @@ public class LinkedListMR<T>{
    //reversing the linked list 
    //with a stack - taking the *data* rather than the actual node
    public void reverseStack(){
+      if(head == null){
+         System.out.println("Linked List is empty!");
+         return;
+      }
+      
       lStack = new LinkedStack<T>();
       currNode = head;
       //push entire LL onto stack 
-      while(currNode.getLink() != null){ 
-         lStack.push(currNode.getInfo());
-         currNode = currNode.getLink();
-      }
-      //while doenst get last node
-      if(currNode.getLink() == null){
+      while(currNode != null){ 
          lStack.push(currNode.getInfo());
          currNode = currNode.getLink();
       }
@@ -141,26 +148,16 @@ public class LinkedListMR<T>{
       prevNode = null; 
       
       //iterate through, reassigning links
-      while(currNode.getLink() != null){
+      while(currNode != null){
          //assign value to next 
          nextNode = currNode.getLink();
          
          //set the pointer of the current node to the previous node
          currNode.setLink(prevNode); 
-      
+
+         //move forward
          prevNode = currNode;
          currNode = nextNode;      
-      }
-      //while doesnt get last node
-      if(currNode.getLink() == null){
-         //assign value to next 
-         nextNode = currNode.getLink();
-         
-         //set the pointer of the current node to the previous node
-         currNode.setLink(prevNode); 
-      
-         prevNode = currNode;
-         currNode = nextNode; 
       }
       
       //update the head
