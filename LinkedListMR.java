@@ -25,38 +25,6 @@ public class LinkedListMR<T>{
     return (head == null); 
    }
    
-   //adds
-   //add node at head 
-   public void addHead(T element){
-      LLNode<T> newNode = new LLNode<T>(element);
-      newNode.setLink(head);
-      head = newNode; 
-   }
-
-   /*
-   //add node in between
-   public void addBetween(int index, T element){
-      if(head == null){
-         System.out.println("Linked List is empty!");
-         return;
-      }
-      
-      currNode = head;
-      //get to index
-      for(int i = 0; i < index; i++){
-         currNode = currNode.getLink();
-         if(currNode.getLink() == null){
-            System.out.println("Linked List is NOT long enough!");
-            return;
-         }
-      }
-
-      LLNode<T> newNode = new LLNode<T>(element);
-      newNode.setLink(currNode.getLink());
-      newNode.setLink(newNode);
-   }
-   */
-   
    //general add to the end of the list 
    public void add(T element){
       LLNode<T> newNode = new LLNode<T>(element);
